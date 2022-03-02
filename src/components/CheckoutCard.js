@@ -16,6 +16,8 @@ import { AddShoppingCart } from '@material-ui/icons';
 import accounting from 'accounting';
 import DeleteIcon from '@material-ui/icons/Delete'
 import  {makeStyles} from '@material-ui/core/styles'
+import { useStateValue } from '../StateProvider'; 
+import { actionTypes } from '../reducer';
 
 const useStyles = makeStyles((theme) =>({
 
@@ -36,6 +38,14 @@ const useStyles = makeStyles((theme) =>({
 export default function CheckoutCard({product : {id, name, productType, image, price, rating, description}}) {
   const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles();
+    const[{basket}, dispatch] = useStateValue();
+
+    const removeItem = () =>{
+      dispatch({
+        type: actionTypes.REMOVE_ITEM,
+        id:id,
+      })
+    }
 
 
   return (
@@ -68,7 +78,7 @@ export default function CheckoutCard({product : {id, name, productType, image, p
           ))}
         </div>
         
-        <IconButton><DeleteIcon fontSize='large'/></IconButton>
+        <IconButton><DeleteIcon fontSize='large' onClick={removeItem}/></IconButton>
         
       </CardActions>
     </Card>
