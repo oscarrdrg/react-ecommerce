@@ -34,7 +34,7 @@ export default function Navbar() {
           
           <div sx={{ flexGrow: 1 }}/>
           <Typography variant="h6" component="p" sx={{ flexGrow: 1}} color="textPrimary">
-            En proceso...
+            Hello Guest
           </Typography>
           <Button color="inherit" variant='outlined' style={{color:"black"}}>
               <strong>
