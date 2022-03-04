@@ -8,16 +8,12 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ClassNames } from '@emotion/react';
-import imagenes from './imagenes';
 import { AddShoppingCart } from '@material-ui/icons';
 import accounting from 'accounting';
 import { actionTypes } from '../reducer';
 import { useStateValue } from '../StateProvider'; 
-
-
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
