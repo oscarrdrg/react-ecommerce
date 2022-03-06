@@ -5,19 +5,38 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import imagenes from './imagenes';
-import { Badge, makeStyles } from '@mui/material';
+import { Badge} from '@mui/material';
 import { ShoppingCart } from '@material-ui/icons';
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../StateProvider'; 
+import { auth } from '../Firebase';
+import { actionTypes } from '../reducer';
+import { useHistory } from 'react-router-dom';
 
 
 export default function Navbar() {
 
-  const[{basket}, dispatch] = useStateValue();
-  return (
+  const[{basket, user}, dispatch] = useStateValue()
+  const history = useHistory()
 
+  const handleAuth = ()=>{
+    if(user){
+      auth.signOut()
+      dispatch({
+        type:actionTypes.EMPTY_BASKET,
+        basket: []
+      })
+      dispatch({
+        type:actionTypes.SET_USER,
+        user:null
+      })
+      history.push("/")
+    }
+  }
+
+
+  return (
     <Box sx={{ flexGrow: 1 }} marginBottom="10rem">
       <AppBar position="fixed" style={{background: "whitesmoke", boxShadow:"none"}}> 
         <Toolbar>
@@ -34,13 +53,15 @@ export default function Navbar() {
           
           <div sx={{ flexGrow: 1 }}/>
           <Typography variant="h6" component="p" sx={{ flexGrow: 1}} color="textPrimary">
-            Hello Guest
+            Hello {user ? user.email : "Guest"}
           </Typography>
-          <Button color="inherit" variant='outlined' style={{color:"black"}}>
+          <Link to="/signin">
+          <Button color="inherit" variant='outlined' style={{color:"black"}} onClick={handleAuth}>
               <strong>
-                Sign In
+                {user ? "Sign Out" : "Sign In"}
               </strong>
-            </Button>
+            </Button></Link>
+         
             <Link to="checkout-page">
             <IconButton aria-label='show cart items' color="inherit">
                 <Badge badgeContent={basket?.length} color="secondary">

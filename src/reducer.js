@@ -1,12 +1,17 @@
+import { act } from "@testing-library/react"
+
 export const initialState = {
-    basket:[]
+    basket:[],
+    user:null,
 }
 
 
 export const actionTypes = {
 
     ADD_TO_BASKET:"ADD_TO_BASKET",
-    REMOVE_ITEM:"REMOVE_ITEM"
+    REMOVE_ITEM:"REMOVE_ITEM",
+    SET_USER:"SET_USER",
+    EMPTY_BASKET:"EMPTY_BASKET"
 }
 
 
@@ -37,6 +42,18 @@ const reducer = (state, action)=>{
 
                 ...state,
                 basket: newBasket,
+                
+            }
+        
+        case "SET_USER":
+            return{
+                ...state,
+                user:action.user
+            }
+        case "EMPTY_BASKET":
+            return{
+                ...state,
+                basket:action.basket
                 
             }
 
